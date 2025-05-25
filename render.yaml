@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: shop-catalog
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn shop.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: shop.settings
+      - key: PYTHON_VERSION
+        value: 3.13
