@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>Каталог аудиотехники</title>
+    <title>{% block title %}Каталог аудиотехники{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
         /* Сброс и базовые стили */
@@ -121,38 +121,13 @@
         </nav>
     </header>
 
-    <main>
-        <h1>Каталог аудиотехники</h1>
-        <div class="grid">
-            {% for product in products %}
-            <div class="card">
-                {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" />
-                {% endif %}
-                <h2>{{ product.name }}</h2>
-                <div class="price">{{ product.price }} ₽</div>
-                <a class="details" href="{% url 'product_detail' product.pk %}">Подробнее</a>
-            </div>
-            {% endfor %}
-        </div>
-    </main>
-    <footer style="
-        background: #111;
-        color: #f9f9f9;
-        padding: 1rem 2rem;
-        text-align: center;
-        font-size: 0.9rem;
-        margin-top: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        font-family: 'Inter', sans-serif;
-    ">
+    {% block content %}{% endblock %}
+
+    <footer>
         <div>Oleg Baranov — baranov.workmail@gmail.com © 2025</div>
         <div style="color: #bbb; font-weight: 500;">
-            Посетителей: {{ hit_count.hits  }}
+            Посетителей: {{ hit_count.hits }}
         </div>
     </footer>
-
 </body>
 </html>

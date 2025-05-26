@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <h1>Голосования</h1>
+    <div class="grid">
+        {% for poll in polls %}
+            <div class="card">
+                <h2>{{ poll.question }}</h2>
+                <a class="details" href="{% url 'poll_detail' poll.id %}">Открыть опрос</a>
+            </div>
+        {% empty %}
+            <p>Пока нет активных голосований.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

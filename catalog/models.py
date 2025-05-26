@@ -20,3 +20,26 @@ class Comment(models.Model):
 
 class SiteVisitCounter(models.Model):
     count = models.PositiveIntegerField(default=0)
+
+class Poll(models.Model):
+    question = models.CharField(max_length=255)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.question
+
+class Choice(models.Model):
+    poll = models.ForeignKey(Poll, related_name='choices', on_delete=models.CASCADE)
+    text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.text
+
+class Vote(models.Model):
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    ip_address = models.GenericIPAddressField()
+
+    class Meta:
+        unique_together = ('poll', 'ip_address')
+

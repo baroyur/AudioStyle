@@ -4,7 +4,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-audio_store_key'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
