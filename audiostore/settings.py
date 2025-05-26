@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-audio_store_key'
 
-ALLOWED_HOSTS = ['yourdomain.ru', 'IP_адрес_сервера']
+ALLOWED_HOSTS = ['http://a1130938.xsph.ru/', '141.8.193.104']
 DEBUG = False  # если уже в проде
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
