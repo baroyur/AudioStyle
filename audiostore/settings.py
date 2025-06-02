@@ -6,12 +6,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-audio_store_key'
 
 # Тест
-ALLOWED_HOSTS = ['*']
-DEBUG = True
+# ALLOWED_HOSTS = ['*']
+# DEBUG = True
 
 # Прод
-# ALLOWED_HOSTS = ['a1130938.xsph.ru']
-# DEBUG = False  # если уже в проде
+ALLOWED_HOSTS = ['a1130938.xsph.ru']
+DEBUG = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # для продакшена (команда collectstatic)
