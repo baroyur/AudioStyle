@@ -114,12 +114,18 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo"><a href="{% url 'product_list' %}">АудиоСтиль</a></div>
-        <nav style="margin-left: auto;">
-            <a href="{% url 'poll_list' %}" style="margin-left: 2rem; color: #f9f9f9; font-weight: 500;">Голосования</a>
-        </nav>
+    <header class="header" style="position: relative; display: flex; align-items: center; height: 60px; background: #111; padding: 0 2rem;">
+          <a href="{% url 'home:index' %}" class="btn-home" style="color: #f9f9f9; font-weight: 600; text-decoration: none;">На главную</a>
+
+          <div class="logo" style="position: absolute; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 1.5rem;">
+            <a href="{% url 'catalog:product_list' %}" style="color: #f9f9f9; text-decoration: none;">АудиоСтиль</a>
+          </div>
+
+          <nav class="nav-right" style="margin-left: auto;">
+            <a href="{% url 'catalog:poll_list' %}" style="color: #f9f9f9; font-weight: 500; text-decoration: none;">Голосования</a>
+          </nav>
     </header>
+
 
     <main>
         <h1>Каталог аудиотехники</h1>
@@ -131,7 +137,7 @@
                 {% endif %}
                 <h2>{{ product.name }}</h2>
                 <div class="price">{{ product.price }} ₽</div>
-                <a class="details" href="{% url 'product_detail' product.pk %}">Подробнее</a>
+                <a class="details" href="{% url 'catalog:product_detail' product.pk %}">Подробнее</a>
             </div>
             {% endfor %}
         </div>

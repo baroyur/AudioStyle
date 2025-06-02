@@ -5,8 +5,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-audio_store_key'
 
-ALLOWED_HOSTS = ['http://a1130938.xsph.ru/', '141.8.193.104']
-DEBUG = False  # если уже в проде
+ALLOWED_HOSTS = ['*']
+DEBUG = True
+
+# ALLOWED_HOSTS = ['a1130938.xsph.ru']
+# DEBUG = False  # если уже в проде
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 INSTALLED_APPS = [
@@ -18,6 +21,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog',
+    'labs',
+    'home',
+    'lab3',
     'hitcount',
 ]
 

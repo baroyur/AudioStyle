@@ -135,11 +135,11 @@
 </head>
 <body>
     <header>
-        <a href="{% url 'product_list' %}">АудиоСтиль</a>
+        <a href="{% url 'catalog:product_list' %}">АудиоСтиль</a>
     </header>
 
     <main class="content">
-        <a href="{% url 'product_list' %}" class="back-link">← Назад в каталог</a>
+        <a href="{% url 'catalog:product_list' %}" class="back-link">← Назад в каталог</a>
 
         {% if product.image %}
         <img src="{{ product.image.url }}" alt="{{ product.name }}">

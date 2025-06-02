@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Каталог аудиотехники{% endblock %}</title>
+    <title>{% block title %}Классификация автомобилей{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
         /* Сброс и базовые стили */
@@ -33,13 +33,32 @@
             align-items: center;
             height: 60px;
         }
+        header .left-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-weight: 500;
+        }
+        header .left-links a {
+            color: #f9f9f9;
+        }
         header .logo {
             font-weight: 700;
             font-size: 1.5rem;
             letter-spacing: 0.05em;
+            margin-left: 2rem;
         }
         header .logo a {
             color: #f9f9f9;
+        }
+
+        nav {
+            margin-left: auto;
+        }
+        nav a {
+            margin-left: 2rem;
+            color: #f9f9f9;
+            font-weight: 500;
         }
 
         /* Основной контент */
@@ -71,36 +90,6 @@
         .card:hover {
             transform: translateY(-5px);
         }
-        .card img {
-            width: 100%;
-            max-height: 180px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-        }
-        .card h2 {
-            font-size: 1.2rem;
-            margin: 0.5rem 0;
-        }
-        .price {
-            font-weight: 600;
-            color: #111;
-            margin: 0.5rem 0;
-        }
-        .details {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.4rem 1rem;
-            border: 1px solid #222;
-            border-radius: 999px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            color: #222;
-            transition: background 0.2s ease;
-        }
-        .details:hover {
-            background: #222;
-            color: white;
-        }
 
         /* Футер */
         footer {
@@ -115,18 +104,26 @@
 </head>
 <body>
     <header>
-        <div class="logo"><a href="{% url 'catalog:product_list' %}">АудиоСтиль</a></div>
-        <nav style="margin-left: auto;">
-            <a href="{% url 'catalog:poll_list' %}" style="margin-left: 2rem; color: #f9f9f9; font-weight: 500;">Голосования</a>
+        <div class="left-links">
+            <a href="{% url 'home:index' %}">На главную</a>
+        </div>
+        <nav>
+            <a href="{% url 'lab3:car_list' %}">Список автомобилей</a>
+            <a href="{% url 'lab3:add_car' %}">Добавить автомобиль</a>
+            <a href="{% url 'lab3:add_car_class' %}">Добавить класс</a>
+            <a href="{% url 'lab3:add_manufacturer' %}">Добавить производителя</a>
+            <a href="{% url 'lab3:add_car_parameter' %}">Добавить параметр</a>
         </nav>
     </header>
 
-    {% block content %}{% endblock %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
     <footer>
         <div>Oleg Baranov — baranov.workmail@gmail.com © 2025</div>
         <div style="color: #bbb; font-weight: 500;">
-            Посетителей: {{ hit_count.hits }}
+            Посетителей: {{ hit_count.hits|default:"0" }}
         </div>
     </footer>
 </body>

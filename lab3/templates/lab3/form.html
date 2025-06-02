@@ -1,0 +1,97 @@
+{% extends "lab3/base.html" %}
+
+{% block title %}Добавить / Редактировать автомобиль{% endblock %}
+
+{% block content %}
+<h1>Добавить / Редактировать автомобиль</h1>
+
+<form method="post" class="car-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="form-group">
+        {{ form.car_class.label_tag }}
+        {{ form.car_class }}
+        {{ form.car_class.errors }}
+    </div>
+
+    <div class="form-group">
+        {{ form.manufacturer.label_tag }}
+        {{ form.manufacturer }}
+        {{ form.manufacturer.errors }}
+    </div>
+
+    <div class="form-group">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+        {{ form.name.errors }}
+    </div>
+
+    <div class="form-group">
+        {{ form.parameters.label_tag }}
+        {{ form.parameters }}
+        {{ form.parameters.errors }}
+        <small>Выберите параметры автомобиля (если поле множественное)</small>
+    </div>
+
+    <button type="submit" class="btn-submit">Сохранить</button>
+</form>
+
+<style>
+.car-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #111;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #111;
+    outline: none;
+}
+
+.btn-submit {
+    background: #111;
+    color: #f9f9f9;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: block;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+.btn-submit:hover {
+    background: #444;
+}
+</style>
+{% endblock %}

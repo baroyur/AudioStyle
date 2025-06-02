@@ -1,0 +1,79 @@
+{% extends "lab3/base.html" %}
+
+{% block title %}Список автомобилей{% endblock %}
+
+{% block content %}
+
+
+<h1 style="text-align: center;">Список автомобилей</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Класс автомобиля</th>
+            <th>Производитель</th>
+            <th>Модель</th>
+            <th>Параметры</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for car in cars %}
+        <tr>
+            <td>{{ car.car_class.name }}</td>
+            <td>{{ car.manufacturer.name }}</td>
+            <td>{{ car.name }}</td>
+            <td>
+                {% for param in car.parameters.all %}
+                    {{ param.key }}: {{ param.value }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    Нет параметров
+                {% endfor %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" style="text-align:center; padding: 1rem;">Автомобили не найдены</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    thead {
+        background: #111;
+        color: #f9f9f9;
+    }
+    th, td {
+        padding: 1rem 1.5rem;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+        font-size: 1rem;
+    }
+    tbody tr:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+    .details {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border: 1px solid #222;
+        border-radius: 999px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        color: #222;
+        transition: background 0.2s ease;
+    }
+    .details:hover {
+        background: #222;
+        color: white;
+    }
+</style>
+{% endblock %}
