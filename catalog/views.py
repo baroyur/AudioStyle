@@ -1,27 +1,31 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, SiteVisitCounter,Poll, Choice, Vote
+from .models import Product, SiteVisitCounter, Poll, Choice, Vote
 from .forms import CommentForm
-from hitcount.models import HitCount
-from hitcount.views import HitCountMixin
 from django.db import IntegrityError
-from django.http import HttpResponseForbidden
-
+from hitcount.views import HitCountMixin
+from hitcount.models import HitCount
 
 def product_list(request):
-    # Получаем объект счетчика или создаем, если нет
+    # получаем объект счетчика по pk (например, для главной страницы)
     counter, created = SiteVisitCounter.objects.get_or_create(pk=1)
-    counter.count += 1
-    counter.save()
+
+    # увеличиваем количество просмотров через hitcount
+    hit_count = HitCount.objects.get_for_object(counter)
+    HitCountMixin.hit_count(request, hit_count)
 
     products = Product.objects.all()
-    return render(request, 'catalog/product_list.html', {'products': products, 'visit_count': counter.count})
+
+    return render(request, 'catalog/product_list.html', {
+        'products': products,
+        'visit_count': counter.count,
+        'hit_count': hit_count,
+    })
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
-    # Получаем или создаём объект для подсчёта просмотров товара
     hit_count = HitCount.objects.get_for_object(product)
-    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+    HitCountMixin.hit_count(request, hit_count)
 
     comments = product.comments.order_by('-created_at')
 
@@ -42,10 +46,16 @@ def product_detail(request, pk):
         'hit_count': hit_count,
     })
 
-
 def poll_list(request):
     polls = Poll.objects.order_by('-pub_date')
-    return render(request, 'catalog/poll_list.html', {'polls': polls})
+
+    # Нет конкретного объекта для hitcount — передадим None или создадим фиктивный
+    hit_count = None
+
+    return render(request, 'catalog/poll_list.html', {
+        'polls': polls,
+        'hit_count': hit_count,
+    })
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
@@ -54,7 +64,6 @@ def get_client_ip(request):
     else:
         ip = request.META.get("REMOTE_ADDR")
     return ip
-
 
 def poll_detail(request, poll_id):
     poll = get_object_or_404(Poll, pk=poll_id)
@@ -76,8 +85,12 @@ def poll_detail(request, poll_id):
             except (Choice.DoesNotExist, IntegrityError):
                 pass  # можно обработать ошибку
 
+    # Здесь тоже нет конкретного объекта для hitcount, так что None
+    hit_count = None
+
     return render(request, "poll_detail.html", {
         "poll": poll,
         "already_voted": already_voted,
-        "just_tried_to_vote": just_tried_to_vote
+        "just_tried_to_vote": just_tried_to_vote,
+        "hit_count": hit_count,
     })

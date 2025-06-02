@@ -5,12 +5,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-audio_store_key'
 
+# Тест
 ALLOWED_HOSTS = ['*']
 DEBUG = True
 
+# Прод
 # ALLOWED_HOSTS = ['a1130938.xsph.ru']
 # DEBUG = False  # если уже в проде
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # для продакшена (команда collectstatic)
+
+# Медиа
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INSTALLED_APPS = [
     'import_export',
@@ -64,10 +72,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 # settings.py
 VOTE_TIME_LIMIT_SECONDS = 3600  # 1 час
