@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>Лабораторные работы</title>
+    <title>{% block title %}Lab6{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
         body {
@@ -107,67 +107,15 @@
             text-align: left;
             margin-bottom: 2rem;
         }
-        .labs-list {
-            text-align: left;
-            margin-top: 2rem;
-        }
-        .labs-list a {
-            display: block;
-            background: #fff;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 0.3rem;
-            box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
-            font-weight: 600;
-            color: #111;
-            transition: background-color 0.2s ease;
-        }
-        .labs-list a:hover {
-            background-color: #eee;
-            text-decoration: none;
-        }
-        .labs-desc {
-            font-weight: normal;
-            color: #555;
-            margin-top: 0.3rem;
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
 <header>
-    <a href="{% url 'home:index' %}">← На главную</a>
+        <a href="{% url 'labs:index' %}" class="btn-home">К списку лабораторных</a>
 </header>
 
 <main>
-    <h1>Лабораторные работы</h1>
-
-    <div class="labs-list">
-        <a href="{% url 'labs:lab1' %}">
-            Лабораторная работа №1
-            <div class="labs-desc">Создание стартового Django-проекта и первое приложение.</div>
-        </a>
-        <a href="{% url 'labs:lab2_form' %}">
-            Лабораторная работа №2
-            <div class="labs-desc">Работа с моделями, миграциями и базой данных.</div>
-        </a>
-        <a href="{% url 'lab3:car_list' %}">
-            Лабораторная работа №3
-            <div class="labs-desc">Каталог автомобилей с вложенными моделями.</div>
-        </a>
-        <a href="{% url 'lab4:report' %}">
-            Лабораторная работа №4
-            <div class="labs-desc">Формы и работа с пользовательским вводом.</div>
-        </a>
-        <a href="{% url 'lab5:index' %}">
-            Лабораторная работа №5
-            <div class="labs-desc">Голосование с ограничением по времени и отображением результатов.</div>
-        </a>
-        <a href="{% url 'lab6:start' %}">
-            Лабораторная работа №6
-            <div class="labs-desc">Разработка системы тестирования с вопросами, оценкой и сохранением результатов.</div>
-        </a>
-    </div>
+    {% block content %}{% endblock %}
 </main>
 
 <footer>

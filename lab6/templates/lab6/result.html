@@ -1,0 +1,30 @@
+{% extends "lab6/base.html" %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8">
+  <h2 class="text-2xl font-bold mb-6 text-center">Результаты для {{ student.full_name }}</h2>
+
+  <p class="text-lg text-gray-800 mb-8 text-center">
+    Вы правильно ответили на <strong>{{ score }}</strong> из <strong>{{ total }}</strong> вопросов.
+  </p>
+
+  {% if wrong_answers %}
+    <h3 class="text-xl font-semibold mb-4">Ошибки:</h3>
+    <ul class="space-y-6 mb-10">
+      {% for item in wrong_answers %}
+        <li class="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p><strong>{{ item.question }}</strong></p>
+          <p class="text-sm text-gray-700">Ваш ответ: <span class="text-red-600">{{ item.your_answer }}</span></p>
+          <p class="text-sm text-gray-700">Правильный: <span class="text-green-600">{{ item.correct_answer }}</span></p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <div class="text-center">
+    <a href="{% url 'lab6:start' %}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-xl shadow-md transition">
+      <button>К началу теста</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

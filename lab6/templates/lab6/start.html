@@ -1,0 +1,6 @@
+{% extends "lab6/base.html" %}
+
+{% block content %}
+<h2>Начало тестирования</h2>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button type="submit">Начать</button></form>
+{% endblock %}

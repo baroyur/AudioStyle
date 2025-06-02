@@ -24,6 +24,9 @@ INSTALLED_APPS = [
     'labs',
     'home',
     'lab3',
+    'lab4',
+    'lab5',
+    'lab6',
     'hitcount',
 ]
 
@@ -34,6 +37,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'lab4.middleware.VisitCounterMiddleware',
 ]
 
 ROOT_URLCONF = 'audiostore.urls'
@@ -64,3 +68,6 @@ DATABASES = {
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# settings.py
+VOTE_TIME_LIMIT_SECONDS = 3600  # 1 час
