@@ -1,22 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, SiteVisitCounter, Poll, Choice, Vote
+from .models import Product, SiteVisitCounter, Poll, Choice, Vote, Category
 from .forms import CommentForm
 from django.db import IntegrityError
 from hitcount.views import HitCountMixin
 from hitcount.models import HitCount
 
 def product_list(request):
-    # получаем объект счетчика по pk (например, для главной страницы)
+    # Счётчик просмотров
     counter, created = SiteVisitCounter.objects.get_or_create(pk=1)
-
-    # увеличиваем количество просмотров через hitcount
     hit_count = HitCount.objects.get_for_object(counter)
     HitCountMixin.hit_count(request, hit_count)
 
+    # Фильтрация по категории
+    selected_category = request.GET.get('category')
     products = Product.objects.all()
+
+    if selected_category:
+        products = products.filter(category_id=selected_category)
+
+    categories = Category.objects.all()
 
     return render(request, 'catalog/product_list.html', {
         'products': products,
+        'categories': categories,
+        'selected_category': int(selected_category) if selected_category else None,
         'visit_count': counter.count,
         'hit_count': hit_count,
     })

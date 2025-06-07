@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Product, Comment, Poll, Choice
+from .models import Product, Comment, Poll, Choice, Category
 
 @admin.register(Product)
 class ProductAdmin(ImportExportModelAdmin):
@@ -21,3 +21,5 @@ class ChoiceInline(admin.TabularInline):
 class PollAdmin(admin.ModelAdmin):
     list_display = ('question', 'pub_date')
     inlines = [ChoiceInline]
+
+admin.site.register(Category)

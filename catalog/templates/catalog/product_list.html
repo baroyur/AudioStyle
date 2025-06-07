@@ -128,8 +128,20 @@
     </header>
 
 
-    <main>
+   <main>
         <h1>Каталог аудиотехники</h1>
+
+        <!-- Фильтр по категориям -->
+        <form method="get" style="margin-bottom: 1.5rem; text-align: center;">
+            <label for="category-select" style="font-weight: 600; margin-right: 0.5rem;">Фильтр по категории:</label>
+            <select id="category-select" name="category" onchange="this.form.submit()" style="padding: 0.3rem 0.6rem; font-size: 1rem;">
+                <option value="" {% if not selected_category %}selected{% endif %}>Все категории</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+
         <div class="grid">
             {% for product in products %}
             <div class="card">
@@ -143,6 +155,7 @@
             {% endfor %}
         </div>
     </main>
+
     <footer style="
         background: #111;
         color: #f9f9f9;
